@@ -1,2 +1,2 @@
-# youtube-video-transcriber-using-openai-whisper-
+# AudioAlchemy: YouTube to Text Transcription
 added afterwards
