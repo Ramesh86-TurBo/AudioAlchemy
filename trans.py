@@ -53,9 +53,6 @@ def format_result(file_name, text):
     with open(file_name, 'a', encoding="utf-8") as file:
         print("Writing transcription to text file..")
         file.write(format_text)
-        choice = input("Do you want to translate audio transcription to English? (Yes/No) ").strip()
-        if choice.lower() == "yes":
-            translate_result('transcription.txt', 'translation.txt')
 
 # Function to translate the transcription to English using Google Translate
 def translate_result(org_file, trans_file):
@@ -74,12 +71,12 @@ def translate_result(org_file, trans_file):
 def main():
     try:
         # Ask user for the YouTube video URL
-        url = "https://youtube.com/shorts/BV0taeYcKHE?feature=shared"
+        url = input("Enter the youtube video url: ")
 
         # Download audio
         audio_downloaded = download_audio(url, "YoutubeAudios", "audio.mp3")
         if not audio_downloaded:
-            return
+            return False
 
         # Ask user to select the speech recognition model
         model_name = input("Select speech recognition model name (tiny, base, small, medium, large): ")
@@ -88,6 +85,21 @@ def main():
         transcription = transcribe_audio(model_name, "YoutubeAudios/audio.mp3")
         if transcription is not None:
             format_result('transcription.txt', transcription)
+
+        # Ask the user if they want to translate the transcription
+        translate_choice = input("Do you want to translate audio transcription to English? (y/n): ").strip()
+        if translate_choice.lower() == "y":
+            translate_result('transcription.txt', 'translation.txt')
+        
+        # Ask the user if they want to delete the files
+        delete_choice = input("Do you want to delete the audio, transcribed, and translated files? (y/n): ").strip()
+        if delete_choice.lower() == "y":
+            delete_files = ["YoutubeAudios/audio.mp3", "transcription.txt", "translation.txt"]
+            for file_path in delete_files:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    print(f"Deleted {file_path}")
+
     except KeyboardInterrupt:
         print("Operation aborted by the user.")
     except Exception as e:
@@ -95,3 +107,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# exmaple
+# "https://youtube.com/shorts/BV0taeYcKHE?feature=shared"
