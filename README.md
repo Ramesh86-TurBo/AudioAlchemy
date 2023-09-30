@@ -50,5 +50,3 @@ To provide installation instructions for users who want to use your code from yo
    ```
 
    Then, they can proceed with steps 2 and 3 within the activated virtual environment.
-
-Include these installation instructions in your project's README file, and make sure to provide clear and detailed guidance to help users set up and use your code successfully.
