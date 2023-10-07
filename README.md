@@ -1,10 +1,8 @@
 # AudioAlchemy: YouTube to Text Transcription
 
-1) Overview:
-   
-"AudioAlchemy is a Python script designed to streamline the process of transcribing and translating audio from YouTube videos. Users provide a video URL, select a Whisper speech recognition model, and the script does the rest. It downloads the audio, transcribes it into text, and optionally translates the transcription to English. The script offers user-friendly prompts at each step, allowing for a tailored experience. Moreover, users have the option to delete the downloaded audio and resulting files, making it a versatile and user-friendly tool for handling YouTube video content."
+AudioAlchemy is a Python script designed to streamline the process of transcribing and translating audio from YouTube videos. Users provide a video URL, select a Whisper speech recognition model, and the script does the rest. It downloads the audio, transcribes it into text, and optionally translates the transcription to English. The script offers user-friendly prompts at each step, allowing for a tailored experience. Moreover, users have the option to delete the downloaded audio and resulting files, making it a versatile and user-friendly tool for handling YouTube video content.
 
-2) Installation:
+# Installation:
 
 To provide installation instructions for users who want to use your code from your GitHub repository, you can follow these general steps:
 
