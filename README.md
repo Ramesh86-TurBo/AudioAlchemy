@@ -4,6 +4,10 @@ AudioAlchemy is a Python script designed to streamline the process of transcribi
 
 # Example:
 
+Folder Structure:
+
+![Capture3](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/e7e3f964-bc85-46f5-b054-778611fc2a5b)
+
 1) In English:
    
 YouTube URL: https://youtu.be/zkTf0LmDqKI?si=4NFlR3tcsJZUJ3Yl
@@ -24,7 +28,13 @@ YouTube URL: https://youtube.com/shorts/4psrAOpjEXI?si=UVoqa44sLxiKwNBY
 
 Command Line: 
 
+![yt1](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/26363f35-5630-41d3-87ae-f59d16b2bf3b)
+
 Output:
+
+![Capture2](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/98dcf786-9f3e-41ae-ab4f-34045bd106d6)
+
+![Capture1](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/21122d96-c5dd-4265-950a-81547a8a0922)
 
 # Installation:
 
