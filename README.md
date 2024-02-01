@@ -2,6 +2,30 @@
 
 AudioAlchemy is a Python script designed to streamline the process of transcribing and translating audio from YouTube videos. Users provide a video URL, select a Whisper speech recognition model, and the script does the rest. It downloads the audio, transcribes it into text, and optionally translates the transcription to English. The script offers user-friendly prompts at each step, allowing for a tailored experience. Moreover, users have the option to delete the downloaded audio and resulting files, making it a versatile and user-friendly tool for handling YouTube video content.
 
+# Example:
+
+1) In English:
+   
+YouTube URL: https://youtu.be/zkTf0LmDqKI?si=4NFlR3tcsJZUJ3Yl
+
+Command Line: 
+
+![yt1](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/26363f35-5630-41d3-87ae-f59d16b2bf3b)
+
+Output:
+
+![yt2](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/3d7126fa-44ba-4d27-9881-d4276bd9fa41)
+
+![yt3](https://github.com/Ramesh86-TurBo/AudioAlchemy/assets/77799590/2a7f4f74-3463-48b2-abf6-8743057e59a3)
+
+2) In Other Language:
+
+YouTube URL: https://youtube.com/shorts/4psrAOpjEXI?si=UVoqa44sLxiKwNBY
+
+Command Line: 
+
+Output:
+
 # Installation:
 
 To provide installation instructions for users who want to use your code from your GitHub repository, you can follow these general steps:
