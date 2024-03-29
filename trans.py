@@ -71,7 +71,7 @@ def translate_result(org_file, trans_file):
 def main():
     try:
         # Ask user for the YouTube video URL
-        url = input("Enter the youtube video url: ")
+        url = 'https://youtube.com/shorts/4psrAOpjEXI?si=UVoqa44sLxiKwNBY'
 
         # Download audio
         audio_downloaded = download_audio(url, "YoutubeAudios", "audio.mp3")
@@ -108,5 +108,12 @@ def main():
 if __name__ == "__main__":
     main()
 
-# exmaple
-# "https://youtube.com/shorts/BV0taeYcKHE?feature=shared"
+# exmaple:
+
+# 1) In English
+    
+# https://youtu.be/zkTf0LmDqKI?si=4NFlR3tcsJZUJ3Yl
+    
+# 2) In Other Language (kannada)
+
+# https://youtube.com/shorts/4psrAOpjEXI?si=UVoqa44sLxiKwNBY
