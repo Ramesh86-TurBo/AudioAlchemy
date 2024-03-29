@@ -2,16 +2,34 @@
 
 {% block body %}
 
-<form action="{{ url_for('home') }}" method="post">
+<form action="{{ url_for('home') }}" method="get">
 
-    <p>enter the youtube url: </p>
-    <input type="text" id="name" name="name">
+    <label for="name">Enter the youtube url: </label>
+    <input type="text" id="name" name="name"><br>
+
+    <input type="radio" id="tiny" name="option" value="tiny">
+    <label for="tiny">Tiny</label><br>
+
+    <input type="radio" id="base" name="option" value="base">
+    <label for="base">Base</label><br>
+
+    <input type="radio" id="small" name="option" value="small">
+    <label for="small">Small</label><br>
+
+    <input type="radio" id="medium" name="option" value="medium">
+    <label for="medium">Medium</label><br>
+
+    <input type="radio" id="large" name="option" value="large">
+    <label for="large">Large</label><br>
+
     <input type="submit" value="submit">
 
 </form>
 
-<h1>youtube url: {{name}}</h1>
-<h1>your divice has: {{device}}</h1>
-<h1>youtube audio download status: {{audio_downloaded}}</h1>
-    
+<h1>youtube url: {{var2}}</h1>
+<h1>your divice has: {{var3}}</h1>
+<h1>youtube audio download status: {{var4}}</h1>
+<p>Transcription: {{var5}}</p>
+<p>Translation: {{var6}}</p>
+
 {% endblock body %}
