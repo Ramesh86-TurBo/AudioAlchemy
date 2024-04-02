@@ -3,19 +3,19 @@
 {% block body %}
 
 <div class="container border shadow rounded my-5 p-3">
-    <form action="{{ url_for('home') }}" method="get" class="needs-validation">
+    <form action="{{ url_for('home') }}" method="post">
 
         <div class="mt-3 my-5 text-center">
             <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 50px;" ></i>
             <label for="name" class="typewrite display-4 my-5" style="font-weight: 400;" data-period="2000"
                 data-type='["Need a caption?", "Transcribe YouTube videos?","Enter YouTube URL!"]'>
                 <span class="wrap"></span></label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter the YouTube url">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter the YouTube url" required>
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
-        <div class="form-check">
+        <div class="form-check my-5">
             <input type="radio" class="form-check-input" id="tiny" name="option" value="tiny" checked>
             <label for="tiny" class="form-check-label">Tiny</label><br>
 
@@ -32,7 +32,7 @@
             <label for="large" class="form-check-label">Large</label><br>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-danger">Submit</button>
 
     </form>
 
