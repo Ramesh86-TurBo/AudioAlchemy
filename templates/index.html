@@ -5,7 +5,7 @@
 <form action="{{ url_for('home') }}" method="get">
 
     <label for="name">Enter the youtube url: </label>
-    <input type="text" id="name" name="name"><br>
+    <input type="text" id="name" name="name" value="{{ csrf_token() }}"><br>
 
     <input type="radio" id="tiny" name="option" value="tiny">
     <label for="tiny">Tiny</label><br>

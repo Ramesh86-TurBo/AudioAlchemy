@@ -6,9 +6,36 @@ import torch
 import whisper
 import re
 from googletrans import Translator
+from flask_wtf import CSRFProtect 
+from flask_sqlalchemy import SQLAlchemy
 
 # Create the Flask instance and pass the Flask constructor the path of the correct module
 app = Flask(__name__)
+
+# csrf token
+app.secret_key = b'_53oi3uriq9pifpff;apl'
+csrf = CSRFProtect(app) 
+
+# adding configuration for using a sqlite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+ 
+# Creating an SQLAlchemy instance
+db = SQLAlchemy(app)
+
+# MODELS
+
+# databse model for storing user and generated information
+class Data(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    youtube_url = db.Column(db.String(50))
+    model_chosen = db.Column(db.String(50))
+    audio_file = db.Column(db.LargeBinary)
+    translation_file = db.Column(db.LargeBinary)
+    transcribtion_file = db.Column(db.LargeBinary)
+
+    def __repr__(self):
+        return f"entered youtue url: {self.youtube_url}"
 
 # TRANSCRIBING AND TRANSLATING SCRIPT
 
@@ -107,6 +134,10 @@ def home():
         
         # Translating the Transcribed File and saving the translation in a separate File
         translation = translate_result('static/transcription.txt', 'static/translation.txt')
+
+        data1 = Data(youtube_url = name, model_chosen = model)
+        db.session.add(data1)
+        db.session.commit()
 
     return render_template('index.html', var1 = 'home', var2 = name, var3 = check_device(), var4 = audio_downloaded, var5 = transcription, var6 = translation)
 
