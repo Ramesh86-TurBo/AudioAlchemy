@@ -6,15 +6,11 @@ import torch
 import whisper
 import re
 from googletrans import Translator
-from flask_wtf import CSRFProtect 
 from flask_sqlalchemy import SQLAlchemy
+
 
 # Create the Flask instance and pass the Flask constructor the path of the correct module
 app = Flask(__name__)
-
-# csrf token
-app.secret_key = b'_53oi3uriq9pifpff;apl'
-csrf = CSRFProtect(app) 
 
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -28,14 +24,16 @@ db = SQLAlchemy(app)
 # databse model for storing user and generated information
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    youtube_url = db.Column(db.String(50))
-    model_chosen = db.Column(db.String(50))
-    audio_file = db.Column(db.LargeBinary)
-    translation_file = db.Column(db.LargeBinary)
-    transcribtion_file = db.Column(db.LargeBinary)
+    youtube_url = db.Column(db.String(500))
+    model_chosen = db.Column(db.String(500))
+    audio_file = db.Column(db.LargeBinary)  # Field for storing audio file as binary data
+    transcription_file = db.Column(db.LargeBinary)  # Field for storing transcription as binary data
+    translation_file = db.Column(db.LargeBinary)  # Field for storing translation as binary data
 
     def __repr__(self):
-        return f"entered youtue url: {self.youtube_url}"
+        return f"Entered YouTube URL: {self.youtube_url}"
+    
+
 
 # TRANSCRIBING AND TRANSLATING SCRIPT
 
@@ -48,11 +46,9 @@ def check_device():
     return device
 
 # Function to download audio from a YouTube video
-def download_audio(url, output_path, filename):
+def download_audio(url):
     try:
-        # Create output directory if it doesn't exist
-        if not os.path.exists(output_path):
-            os.makedirs(output_path)
+        print("downloading the audio..")
 
         # Create a YouTube object from the URL
         yt = YouTube(url)
@@ -60,50 +56,41 @@ def download_audio(url, output_path, filename):
         # Get the audio stream
         audio_stream = yt.streams.filter(only_audio=True).first()
 
-        # Download the audio stream
-        audio_stream.download(output_path=output_path, filename=filename)
-
-        print(f"Audio downloaded to {output_path}/{filename}")
-        return True
+        # Read audio stream into bytes
+        audio_bytes = audio_stream.stream_to_buffer().read()
+        return audio_bytes
     
     except Exception as e:
-        
         print(f"Error downloading audio: {e}")
-        return False
+        return None
 
-# Function to transcribe the audio using Whisper
-def transcribe_audio(model_name, audio_path):
+# Function to transcribe the audio using Whisper Model
+def transcribe_audio(model_name, audio_bytes):
     try:
         print("Transcribing audio file..")
+        
         model = whisper.load_model(model_name, device=check_device())
-        result = model.transcribe(audio_path)
+        result = model.transcribe(audio_bytes)
         return result["text"]
+    
     except Exception as e:
         print(f"Error transcribing audio: {e}")
         return None
 
 # Function to format the transcription and optionally translate it to English
-def format_result(file_name, text):
-    format_text = re.sub('\.', '.\n', text)
-    with open(file_name, 'a', encoding="utf-8") as file:
-        print("Writing transcription to text file..")
-        file.write(format_text)
-
-# Function to translate the transcription to English using Google Translate
-def translate_result(org_file, trans_file):
+def translate_text(text):
     try:
         translator = Translator()
-        with open(org_file, 'r', encoding="utf-8") as transcription:
-            contents = transcription.read()
-            print("Translating text.")
-            translation = translator.translate(contents)
-        with open(trans_file, 'a', encoding="utf-8") as file:
-            print("Writing translation to text file..")
-            file.write(translation.text)
-        return translation.text
+        translation = translator.translate(text)
+        translated_text = translation.text
+
+        # Convert translated text to bytes
+        return translated_text.encode('utf-8')
+    
     except Exception as e:
-        print(f"Error translating transcription: {e}")
+        print(f"Error translating text: {e}")
         return None
+
 
 # ROUTES
 
@@ -114,32 +101,28 @@ def home():
     if(request.args.get('name') == '' or request.args.get('option') == ''):
 
         name = "Invalid URL"
-        audio_downloaded = "Enter the URL"
         transcription = "Enter the URL"
         translation = "Enter the URL"
-    else:
 
+    else:
         name = request.args.get('name')
         model = request.args.get('option')
 
-        # Download audio
-        audio_downloaded = download_audio(name, "static", "audio.mp3")
+        # Download audio and save to database
+        audio_bytes = download_audio(name)
 
-        # Transcribe the audio
-        transcription = transcribe_audio(model, "static/audio.mp3")
+        # Transcribe audio and save to database
+        transcription = transcribe_audio(model, audio_bytes)
 
-        # Saving the Transcribed text into file
-        if transcription is not None:
-            format_result('static/transcription.txt', transcription)
-        
-        # Translating the Transcribed File and saving the translation in a separate File
-        translation = translate_result('static/transcription.txt', 'static/translation.txt')
+        # Translate transcription and save to database
+        translation = translate_text(transcription)
 
-        data1 = Data(youtube_url = name, model_chosen = model)
+
+        data1 = Data(youtube_url=name, model_chosen=model, audio_file=audio_bytes, transcription_file=transcription, translation_file=translation)
         db.session.add(data1)
         db.session.commit()
 
-    return render_template('index.html', var1 = 'home', var2 = name, var3 = check_device(), var4 = audio_downloaded, var5 = transcription, var6 = translation)
+    return render_template('index.html', var1 = 'home', var2 = name, var3 = check_device(), var5 = transcription, var6 = translation)
 
 
 # Start with flask web app with debug as True only if this is the starting page
