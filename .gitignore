@@ -1,2 +1,5 @@
+# Ignore trans.py file
 trans.py
+
+# Ignore env folder
 env/
