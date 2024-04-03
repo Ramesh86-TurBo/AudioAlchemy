@@ -26,9 +26,9 @@ class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     youtube_url = db.Column(db.String(500))
     model_chosen = db.Column(db.String(500))
-    audio_file = db.Column(db.LargeBinary)  # Field for storing audio file as binary data
-    transcription_file = db.Column(db.LargeBinary)  # Field for storing transcription as binary data
-    translation_file = db.Column(db.LargeBinary)  # Field for storing translation as binary data
+    audio_file = db.Column(db.LargeBinary)  
+    transcription_file = db.Column(db.LargeBinary) 
+    translation_file = db.Column(db.LargeBinary) 
 
     def __repr__(self):
         return f"Entered YouTube URL: {self.youtube_url}"
@@ -193,7 +193,7 @@ def home():
             db.session.commit()
 
 
-        return render_template('index.html', var1 = 'home', var2 = name, var3 = check_device(), var5 = transcription, var6 = translation)
+        return render_template('index.html', var1 = 'home', var5 = transcription, var6 = translation)
     
     else:
 

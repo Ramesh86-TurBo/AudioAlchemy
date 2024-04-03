@@ -1,3 +1,5 @@
+// program to create typing effect
+
 var TxtType = function(el, toRotate, period) {
     this.toRotate = toRotate;
     this.el = el;
@@ -54,3 +56,37 @@ window.onload = function() {
     css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
     document.body.appendChild(css);
 };
+
+// program to copy text to clipboard and clear the text
+
+function copyToClipboard1() {
+    var text1 = document.getElementById("transcriptionText").innerText;
+
+    navigator.clipboard.writeText(text1).then(function() {
+        console.log('Text copied to clipboard');
+        alert('Text copied to clipboard');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+        alert('Could not copy text: ' + err);
+    });
+}
+
+function copyToClipboard2() {
+    var text2 = document.getElementById("translationText").innerText;
+
+    navigator.clipboard.writeText(text2).then(function() {
+        console.log('Text copied to clipboard');
+        alert('Text copied to clipboard');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+        alert('Could not copy text: ' + err);
+    });
+}
+
+function clearText1() {
+    document.getElementById("transcriptionText").innerText = '';
+}
+
+function clearText2() {
+    document.getElementById("translationText").innerText = '';
+}
