@@ -48,11 +48,3 @@ AudioAlchemy is a powerful web application built with Flask and Python libraries
 4. Once transcription is complete, the text will be displayed along with the option to translate it.
 5. Select the target language for translation and click "Translate".
 6. The translated text will be displayed, and you can save the transcribed and translated data for future reference.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to customize this README content according to your project's specific details and requirements.
